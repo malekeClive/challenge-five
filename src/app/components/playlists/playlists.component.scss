@@ -1,0 +1,34 @@
+.title-wrapper {
+  text-align: center;
+
+  h2 {
+    color: #fff;
+    font-size: 15px;
+  }
+
+}
+
+.create {
+  border: 1px solid #00a8ff;
+  color: #fff;
+  margin: 10px 0;
+  padding: 10px 20px;
+  
+  &:hover {
+    border: 1px solid transparent;
+    background-color: #00a8ff;
+  }
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #00a8ff;
+  margin-bottom: 5px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="mr">
+    <h3 class="title">{{playlist.name|uppercase}}</h3>
+    <p class="songs-status">total {{playlist.songs.length}} songs, {{songsDuration}} minutes</p>
+    <p>{{playlist.description}}</p>
+  </div>
+  <div class="line"></div>
+  <div class="songs">
+    <div *ngFor="let song of playlist.songs">
+      <p>{{song.title}}</p>
+      <p>by {{song.artist}} . {{song.duration}} minutes</p>
+    </div>
+  </div>
+  <div class="action-wrapper mr">
+    <button class="del" (click)="deletePlaylistHandler(playlist.name)">DELETE</button>
+    <button class="edit" (click)="editPlaylistHandler(true)">EDIT</button>
+  </div>
+  
+  <app-edit-playlist 
+    *ngIf="showModal" 
+    [playlist]="playlist" 
+    [idx]="idx" 
+    [showModal]="showModal" 
+    (closeModal)="editPlaylistHandler($event)">
+  </app-edit-playlist>
+</div>
+

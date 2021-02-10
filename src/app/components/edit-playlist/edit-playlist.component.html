@@ -1,0 +1,23 @@
+<div [ngClass]="showModal ? 'modal-wrapper' : 'modal-wrapper-close'">
+  <div class="modal">
+    <h3>Edit Playlist</h3>
+    <form (ngSubmit)="submitHandler()" [formGroup]="playlistForm">
+      <input type="text" formControlName="playlistName">
+      <input type="text" formControlName="descriptionName">
+      <div *ngFor="let song of songList; let idx = index; let first = first; let last = last; trackBy: trackByFn">
+        <app-song 
+          [song]="song" 
+          (storeSong)="onEditSongHandler($event)" 
+          (newSong)="newSongHandler()" 
+          (deleteSong)="deleteSongHandler($event)" 
+          [idx]="idx" 
+          [first]="first" 
+          [last]="last"
+          [length]="songList.length">
+        </app-song>
+      </div>
+      <input type="submit" value="Submit">
+      <input type="button" value="Cancel" (click)="modalHandler()">
+    </form>
+  </div>
+</div>
