@@ -2,28 +2,21 @@
   text-align: center;
 
   h2 {
-    color: #fff;
     font-size: 15px;
   }
 
 }
 
-.create {
-  border: 1px solid #00a8ff;
-  color: #fff;
-  margin: 10px 0;
-  padding: 10px 20px;
-  
-  &:hover {
-    border: 1px solid transparent;
-    background-color: #00a8ff;
-  }
+.btn-create-wrapper {
+  width: 50%;
+  margin: auto;
 }
 
 .line {
-  width: 100%;
+  width: 50%;
+  margin: auto;
   height: 1px;
-  background-color: #00a8ff;
+  background-color: rgba(0, 0, 0, .1);
   margin-bottom: 5px;
 }
 
@@ -31,4 +24,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 50%;
+  margin: auto;
 }

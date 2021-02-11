@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Song } from 'src/app/models/song';
 
 @Component({
@@ -15,16 +15,16 @@ export class SongComponent implements OnInit {
   @Input() last!: boolean;
   @Output() storeSong = new EventEmitter<any>();
   @Output() newSong = new EventEmitter();
-  @Output() deleteSong = new EventEmitter();
-  songForm!: FormGroup
+  @Output() deleteSong = new EventEmitter<number>();
+  songForm!: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.songForm = this.fb.group({
-      title: [this.song ? this.song.title : ''],
-      artist: [this.song ? this.song.artist : ''],
-      duration: [this.song ? this.song.duration : ''],
+      title: [this.song ? this.song.title : '', {validators: [Validators.required]}],
+      artist: [this.song ? this.song.artist : '', {validators: [Validators.required]}],
+      duration: [this.song ? this.song.duration : '', {validators: [Validators.required]}],
     })
 
     this.songForm.valueChanges.subscribe(value => {
@@ -42,5 +42,6 @@ export class SongComponent implements OnInit {
 
   removeSong(): void {
     this.deleteSong.emit(this.idx);
+    console.log(this.songForm.value);
   }
 }

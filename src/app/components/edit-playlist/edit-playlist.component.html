@@ -1,23 +1,47 @@
 <div [ngClass]="showModal ? 'modal-wrapper' : 'modal-wrapper-close'">
-  <div class="modal">
-    <h3>Edit Playlist</h3>
-    <form (ngSubmit)="submitHandler()" [formGroup]="playlistForm">
-      <input type="text" formControlName="playlistName">
-      <input type="text" formControlName="descriptionName">
-      <div *ngFor="let song of songList; let idx = index; let first = first; let last = last; trackBy: trackByFn">
-        <app-song 
-          [song]="song" 
-          (storeSong)="onEditSongHandler($event)" 
-          (newSong)="newSongHandler()" 
-          (deleteSong)="deleteSongHandler($event)" 
-          [idx]="idx" 
-          [first]="first" 
-          [last]="last"
-          [length]="songList.length">
-        </app-song>
-      </div>
-      <input type="submit" value="Submit">
-      <input type="button" value="Cancel" (click)="modalHandler()">
-    </form>
-  </div>
+  <mat-card class="modal">
+    <mat-card-title class="title">
+      Edit Playlist
+    </mat-card-title>
+
+    <mat-card-content>
+      <form (ngSubmit)="submitHandler()" [formGroup]="playlistForm">
+        <mat-form-field class="full-width">
+          <mat-label>Playlist name</mat-label>
+          <input type="text" matInput formControlName="playlistName">
+          <mat-error
+          *ngIf="playlistForm.controls['playlistName'].hasError('required')">
+          Playlist name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field >
+
+        <mat-form-field class="full-width">
+          <mat-label>Description name</mat-label>
+          <textarea matInput formControlName="descriptionName"></textarea>
+          <mat-error
+          *ngIf="playlistForm.controls['playlistName'].hasError('required')">
+          Description name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngFor="let song of songList; let idx = index; let first = first; let last = last; trackBy: trackByFn">
+          <app-song 
+            [song]="song" 
+            (storeSong)="onEditSongHandler($event)" 
+            (newSong)="newSongHandler()" 
+            (deleteSong)="deleteSongHandler($event)" 
+            [idx]="idx" 
+            [first]="first" 
+            [last]="last"
+            [length]="songList.length">
+          </app-song>
+        </div>
+
+        <mat-card-actions>
+          <button type="submit" mat-button color="primary">Submit</button>
+          <button type="button" mat-button color="warn" (click)="modalHandler()">Cancel</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

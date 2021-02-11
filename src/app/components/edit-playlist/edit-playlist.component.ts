@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Playlist } from 'src/app/models/playlist';
 import { Song } from 'src/app/models/song';
 import { PlaylistService } from 'src/app/services/playlist.service';
@@ -15,14 +15,15 @@ export class EditPlaylistComponent implements OnInit {
   @Input() showModal!: boolean;
   @Output() closeModal = new EventEmitter<boolean>();
   playlistForm!: FormGroup;
-  songList!: Song[];
+  songList: Song[] = [];
 
   constructor(private fb: FormBuilder, private playlistService: PlaylistService) { }
 
   ngOnInit(): void {
+    console.log("ASddsa");
     this.playlistForm = this.fb.group({
-      playlistName: [this.playlist.name],
-      descriptionName: [this.playlist.description],
+      playlistName: [this.playlist.name, {validators: [Validators.required]}],
+      descriptionName: [this.playlist.description, {validators: [Validators.required]}],
     });
 
     this.songList = [...this.playlist.songs];
@@ -39,6 +40,7 @@ export class EditPlaylistComponent implements OnInit {
 
   deleteSongHandler(idx: number): void {
     this.songList = this.songList.filter((_, i) => idx != i);
+    console.log(this.songList);
   }
 
   submitHandler(): void {

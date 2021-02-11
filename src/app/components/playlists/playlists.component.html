@@ -2,9 +2,12 @@
   <h1>The Playlists</h1>
   <h2>Here you can create your own playlist, edit your already existing playlist, add songs, and show it to the world!</h2>
 </div>
-<div>
-  <button class="create" (click)="setModal(true)">New Playlist</button>
-  <app-create-playlist [showModal]="showModal" (closeModal)="setModal($event)"></app-create-playlist>
+<div class="btn-create-wrapper">
+  <button mat-icon-button color="primary" aria-label="button add icon" (click)="setModal(true)">
+    <mat-icon>playlist_add</mat-icon>
+    <span>New playlist</span>
+  </button>
+  <app-create-playlist *ngIf="showModal" [showModal]="showModal" (closeModal)="setModal($event)"></app-create-playlist>
 </div>
 <div class="line"></div>
 

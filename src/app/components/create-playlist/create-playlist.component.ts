@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Playlist } from 'src/app/models/playlist';
 import { Song } from 'src/app/models/song';
 import { PlaylistService } from 'src/app/services/playlist.service';
@@ -19,8 +19,8 @@ export class CreatePlaylistComponent implements OnInit {
 
   ngOnInit(): void {
     this.playlistForm = this.fb.group({
-      playlistName: [''],
-      descriptionName: [''],
+      playlistName: ['', {validators: [Validators.required]}],
+      descriptionName: ['', {validators: [Validators.required]}],
     });
 
     this.newSongHandler();
@@ -45,10 +45,14 @@ export class CreatePlaylistComponent implements OnInit {
 
     this.playlistService.addNewPlaylist(playlist);
     this.modalHandler();
+    this.songList = [];
+    this.newSongHandler();
   }
 
   modalHandler(): void {
     this.closeModal.emit(false);
+    this.songList = [];
+    this.newSongHandler();
   }
 
   trackByFn(index: any) {

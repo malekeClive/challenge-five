@@ -1,7 +1,47 @@
-<div [formGroup]="songForm">
-  <input type="text" formControlName="title">
+<div [formGroup]="songForm" class="wrapper">
+  <mat-form-field>
+    <mat-label>Playlist name</mat-label>
+    <input type="text" matInput formControlName="title">
+    <mat-error
+    *ngIf="songForm.controls['title'].hasError('required')">
+    Playlist name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field >
+
+  <mat-form-field>
+    <mat-label>Playlist name</mat-label>
+    <input type="text" matInput formControlName="artist">
+    <mat-error
+    *ngIf="songForm.controls['artist'].hasError('required')">
+    Playlist name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field >
+
+  <mat-form-field>
+    <mat-label>Playlist name</mat-label>
+    <input type="number" matInput formControlName="duration">
+    <mat-error
+    *ngIf="songForm.controls['duration'].hasError('required')">
+    Playlist name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field >
+
+  <div class="input-wrapper">
+    <div [hidden]="!last">
+      <button type="button" mat-icon-button color="primary" aria-label="button add icon" (click)="addSong()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div [hidden]="length == 1">
+      <button type="button" mat-icon-button color="warn" aria-label="button clear icon" (click)="removeSong()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- <input type="text" formControlName="title">
   <input type="text" formControlName="artist">
-  <input type="number" formControlName="duration">
-  <input type="button" (click)="addSong()" value="+" [hidden]="!last">
-  <input type="button" (click)="removeSong()" value="-" [hidden]="length == 1">
+  <input type="number" formControlName="duration"> -->
+  <!-- <input type="button" (click)="addSong()" value="+" [hidden]="!last">
+  <input type="button" (click)="removeSong()" value="-" [hidden]="length == 1"> -->
 </div>
