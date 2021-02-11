@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { observable, Observable, Subject } from 'rxjs';
 import { Playlist } from '../models/playlist';
 import { Song } from '../models/song';
 
@@ -50,10 +51,20 @@ export class PlaylistService {
     }
   ];
 
+  private subject = new Subject<any>();
+
   constructor() { }
 
-  removePlaylist(name: string): void {
-    this.playlists = this.playlists.filter(playlist => playlist.name != name);
+  sendClickEvent() {
+    this.subject.next();
+  }
+
+  getClickEvent():Observable<any> {
+    return this.subject.asObservable();
+  }
+
+  removePlaylist(idx: number): void {
+    this.playlists = this.playlists.filter((_, i) => i != idx);
   }
 
   totalSongsInMinutes(songs: Song[]): number {

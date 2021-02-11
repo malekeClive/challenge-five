@@ -12,12 +12,12 @@
     </div>
   </div>
   <div class="action-wrapper mr">
-    <button class="del" (click)="deletePlaylistHandler(playlist.name)">DELETE</button>
+    <button class="del" (click)="deletePlaylistHandler()">DELETE</button>
     <button class="edit" (click)="editPlaylistHandler(true)">EDIT</button>
   </div>
   
   <app-edit-playlist 
-    *ngIf="showModal" 
+    *ngIf="showModal"
     [playlist]="playlist" 
     [idx]="idx" 
     [showModal]="showModal" 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Playlist } from 'src/app/models/playlist';
 import { PlaylistService } from 'src/app/services/playlist.service';
 
@@ -8,24 +9,29 @@ import { PlaylistService } from 'src/app/services/playlist.service';
   styleUrls: ['./playlists.component.scss']
 })
 export class PlaylistsComponent implements OnInit {
+  clickEventSubscription: Subscription;
   playlists: Playlist[] = [];
-  modalShowed: boolean = false;
+  showModal: boolean = false;
 
-  constructor(private playlistsService: PlaylistService) { }
+  constructor(private playlistsService: PlaylistService) {
+    this.clickEventSubscription = this.playlistsService.getClickEvent().subscribe(() => {
+      this.playlists = this.playlistsService.playlists;
+    });
+  }
 
   ngOnInit(): void {
     this.playlists = this.playlistsService.playlists;
   }
 
-  setModal(showModal:boolean):void {
-    this.modalShowed = showModal;
+  setModal(showModal: boolean): void {
+    this.showModal = showModal;
   }
 
-  deletePlaylist(name: string): void {
+  deletePlaylist(idx: number): void {
     // remove list in this class
-    this.playlists = this.playlists.filter(playlist => playlist.name != name);
+    this.playlists = this.playlists.filter((_, i) => idx != i);
 
     // remove list from source
-    this.playlistsService.removePlaylist(name);
+    this.playlistsService.removePlaylist(idx);
   }
 }

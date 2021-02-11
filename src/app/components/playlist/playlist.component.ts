@@ -10,7 +10,7 @@ import { Song } from 'src/app/models/song';
 export class PlaylistComponent implements OnInit {
   @Input() playlist!: Playlist;
   @Input() idx!: number;
-  @Output() deletePlaylist = new EventEmitter<string>();
+  @Output() deletePlaylist = new EventEmitter<number>();
   showModal: boolean = false;
 
   songsDuration: number = 0;
@@ -27,8 +27,8 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
-  deletePlaylistHandler(name: string): void {
-    this.deletePlaylist.emit(name);
+  deletePlaylistHandler(): void {
+    this.deletePlaylist.emit(this.idx);
   }
 
   editPlaylistHandler(showModal: boolean) {

@@ -46,6 +46,7 @@ export class EditPlaylistComponent implements OnInit {
     const playlist: Playlist = new Playlist(this.playlistForm.value.playlistName, songsDuration, this.songList.length, this.playlistForm.value.descriptionName, this.songList);
 
     this.playlistService.updateListPlaylist(playlist, this.idx);
+    this.playlistService.sendClickEvent();
   }
 
   modalHandler(): void {
